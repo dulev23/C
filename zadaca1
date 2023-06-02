@@ -1,0 +1,58 @@
+//Од стандарден влез се чита цел број N (N<=100) и потоа N низи од знаци. Низите знаци содржат букви, 
+//цифри и специјални знаци (без знаци за празно место), а секоја од нив не е подолга од 80 знаци.
+//Да се напише програма со која што на стандарден излез ќе се отпечати најдолгата низа, 
+//којашто е палиндром (се чита исто од од лево на десно и од десно на лево) и што содржи барем еден специјален знак. 
+//Ако нема такви низи, се печати "Nema!". Ако има две или повеќе низи што го задоволуваат овој услов, 
+//се печати првата низа којашто го задоволува условот.
+
+#include<stdio.h>
+#include<string.h>
+#include<ctype.h>
+
+void cleanString(char *str){
+    if(str[strlen(str)-1]=='\n'){
+        str[strlen(str)-1]='\0';
+    }
+}
+
+int Condition(char *str){
+    int i,isPalindrome=1,SpecialChar=0;
+    int n = strlen(str);
+    for (i = 0; i < n/2; i++) {
+        if(str[i]!=str[n-i-1]){
+            isPalindrome=0;
+        }
+    }
+    for (i = 0; i <= n/2; i++) {
+        if(!isalnum(str[i])){
+            SpecialChar=1;
+        }
+    }
+    return isPalindrome==1 && SpecialChar==1;
+}
+int main(){
+    int n;
+    scanf("%d\n",&n);
+    int flag=1;
+    int maxLen=0;
+    char max[81];
+    for (int i = 0; i < n; ++i) {
+        char str[81];
+        fgets(str,sizeof(str),stdin);
+        cleanString(str);
+        if(Condition(str)){
+            if(strlen(str)>maxLen){
+                maxLen=strlen(str);
+                strcpy(max,str);
+                flag=0;
+            }
+        }
+    }
+    if(maxLen!=0){
+        puts(max);
+    }
+    else{
+        printf("Nema!");
+    }
+    return 0;
+}
