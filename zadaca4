@@ -1,0 +1,55 @@
+//Од тастатура се внесуваат димензиите m и n на матрица од цели броеви, Аmxn, ( 0 < m, n < 30 ) и нејзините елементи. 
+//Потоа се внесуваат два цели броја r и k  (индекси на редица/колона од матрицата, т.е. 0 <= r < m и 0 <= k < n).
+//Да се напише програма која ja трансформира матрицата А така што елементите над редицата r 
+//и лево од колоната k се заменуваат со минималната вредност од матрицата А.
+//Новодобиената матрица да се запише во датотека "matrica.txt".
+
+#include <stdio.h>
+#define MAX 30
+void printFile() {
+    FILE *f=fopen("matrica.txt","r");
+    char line[1000];
+    while(!feof(f)){
+        fgets(line,1000,f);
+        if (feof(f))
+            break;
+        printf("%s",line);
+    }
+    fclose(f);
+}
+
+int main() {
+    //Vasiot kod tuka
+    int m,n,r,k,min;
+    int i,j;
+    scanf("%d%d\n%d%d",&m,&n,&r,&k);
+    int A[MAX][MAX];
+    for (i = 0;i<m;++i) {
+        for(j=0;j<n;++j){
+            scanf("%d",&A[i][j]);
+            if(A[i][j]<min){
+                min=A[i][j];
+            }
+            else if(i==0 && j==0){
+                min=A[i][j];
+            }
+        }
+    }
+    for(i=0;i<r;i++){
+        for(j=0;j<k;j++){
+            A[i][j]=min;
+        }
+    }
+
+    FILE *f1=fopen("matrica.txt","w");
+    for(i=0;i<m;i++){
+        for(j=0;j<n;j++){
+            fprintf(f1,"%d ",A[i][j]);
+        }
+        fprintf(f1,"\n");
+    }
+    fclose(f1);
+    // do tuka
+    printFile();
+    return 0;
+}
