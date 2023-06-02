@@ -1,0 +1,27 @@
+//Од стандарден влез се чита еден природен број n. Меѓу природните броеви помали од n, да се најде оној чиј што збир на делителите е најголем. 
+//Во пресметувањето на збирот на делителите на даден број, да не се зема предвид самиот број.
+
+#include<stdio.h>
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    int zbir_deliteli=0, zbirD1=0,n0,n1;
+    for(int i=n-1;i>0;i--)
+    {
+        zbir_deliteli=0;
+        n0=i;
+        for(int j=1; j<i; j++)
+        {
+            if(i%j==0)
+            zbir_deliteli+=j;
+        }
+        if(zbir_deliteli>zbirD1)
+        {
+            zbirD1=zbir_deliteli;
+           n1=i;
+        }
+    }
+    printf("%d",n1);
+    return 0;
+}
